@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Web Audio Pulsar Synthesizer</title>
+<script src="sketch.js" type="text/javascript"></script>
+
+
+
+
+<!-- BUTTONS   -->
+
+<button onclick="oscOn()">On</button>  <!-- button is borrowed and reworked from (w3schools, n.d.)   -->
+
+<form action>
+<input type="submit" value="Off">      <!-- input type is borrowed and reworked from (w3schools, n.d. b)   -->
+</form> 
+
+<button id="button3" onclick="loadSound('audio/sound.wav')">Load Buffer</button>
+
+<button id="button4" onclick="playSound()">Play Buffer</button>
+
+<button id="button5" onclick="StoparbitraryShaper()">Stop Arbitrary Shaper</button>
+
+<button id="button6" onclick="sine()">Sine</button>
+
+<button id="button7" onclick="square()">Square</button>
+
+<button id="button8" onclick="saw()">Sawtooth</button>
+
+<button id="button9" onclick="triangle()">Triangle</button>
+
+<button id="button10" onclick="trainSchedule()">TrainSchedule</button>
+
+ 
+
+</head>
+
+
+<body>
+<p> 
+
+</p>
+
+
+
+<br>
+<br>
+<br>   
+
+<!-- SLIDERS -->
+
+<br>
+<p>This slider controls the Pitch frequency of the main oscillator</p>
+<p>Pitch-Frequency of Pulsaret Waveform<input type="range" min="0.1" max="1200.0" step="0.001" value="350.0" id="freq" name="freq" onchange="pulsaretpitchFreq(this.value);" oninput="changeFreq()"></p>
+<input type="text" id="pitchFreq" value="" >
+
+<br>
+<br>
+This slider controls the rate of pulsar output. 
+<p>Fundamental Frequency<input type="range" min="0.1" max="20.0" step="0.001" value="5.0" id="rate" name="rate" onchange="fundamentalFreq(this.value)" oninput="changeEmissionRate()"></p> <p>0 to 20Hz - Infrasonic Range</p>
+<input type="text" id="infraFreq" value="" >
+
+<br>
+<p>Fundamental Frequency<input type="range" min="20.0" max="100.0" step="0.001" value="5.0" id="rateTwentyPlus" name="rateTwentyPlus" onchange="fundamentalFreqAboveTwenty(this.value)" oninput="changeEmissionRateAboveTwenty()"></p><p>20 to 100Hz - Audio Range</p>         
+<input type="text" id="audioRangeFreq" value="" >
+
+<br>
+<p>This slider controls the Duty cycle (formant frequency) of the main oscillator</p>
+<p>Duty cycle-Silence Ratio<input type="range" min="-3.0" max="3.0" step="0.00001" value="0.0" id="pwm" name="pwm" onchange="dutyCycleValue(this.value)" oninput="changePWM()"></p>  
+<input type="text" id="dutyCycleValue" value="" >
+
+<br>
+<p> This slider controls the rate at which the envelope for the Duty Cycle-Silence Ratio plays at </p>
+<p>Duty cycle-Silence Ratio Envelope Rate - 0.002 to 0.3<input type="range" min="0.002" max="0.3" step="0.001" value="0.003" id="dcRate" name="dcRate" onchange="bufferPlaybackRateValueFast(this.value)" oninput="changeDCRate()"></p>
+<input type="text" id="bufferRate1" value="" >
+
+<br>
+<p>Duty cycle-Silence Ratio Envelope Rate - 0.0000001 to 0.0003<input type="range" min="0.000001" max="0.0003" step="0.0000001" value="0.003" id="slowdcRate" name="slowdcRate" onchange="bufferPlaybackRateValueSlow(this.value)" oninput="changeSlowDCRate()"></p>
+<input type="text" id="bufferRate2" value="" >
+
+<!--The input text boxes for the slider values is borrowed and reworked from (ejlepoud 2012) -->
+
+
+
+
+
+
+
+<br>
+<p>A waveshaper node is using this Gaussian function shape to envelope the signal for the pulsar trains (Davies and Jonsson 2013)</p><img src="Gaussian Transfer Function.png" width=500px id="img1" >
+<p>The other transfer function used in the createPulsaretEnvelope() function is the sine-cardinal (night owl 2012)</p><img src="Sine-Cardinal.png" width=500px id="img2" >
+<p>The graphs of these transfer functions are generated using Kevin Ennis's "Transfergraph" (Ennis 2013)</p>
+
+<script>
+//JavaScript section for the text boxes
+function pulsaretpitchFreq(val) { // changes the pitch frequency of the pulsaret oscillator
+document.getElementById('pitchFreq').value=val; 
+}
+
+function fundamentalFreq(val) { // changes the fundamental frequency 0 - 20Hz  
+document.getElementById('infraFreq').value=val; 
+}  
+  
+function fundamentalFreqAboveTwenty(val) {// changes the fundamental frequnecy 20 - 100Hz
+document.getElementById('audioRangeFreq').value=val; 
+} 
+
+function dutyCycleValue(val) {// changes duty cycle silence ratio
+document.getElementById('dutyCycleValue').value=val; 
+} 
+
+function bufferPlaybackRateValueFast(val) {// changes playback rate of buffer from 0.002 to 0.3
+document.getElementById('bufferRate1').value=val; 
+} 
+
+function bufferPlaybackRateValueSlow(val) {// changes playback rate of buffer from 0.0000001 to 0.0003
+document.getElementById('bufferRate2').value=val; 
+} 
+// The functions for the text boxes used for the slider values is borrowed and reworked from (ejlepoud 2012)
+</script>
+</body>
+</html>
